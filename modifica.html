@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Modificar</title>
+    <script src="dompurify/purify.min.js"></script>
+    <script type="module" src="libclienteweb/manejaErrores.js"></script>
+</head>
+
+<body>
+
+    <form id="formulario">
+        <h1>Modificar</h1>
+        <p><a href="index.html">Cancelar</a></p>
+
+        <input name="id" type="hidden">
+
+        <p>
+            <label>
+                Nombre *
+                <input name="nombre" value="Cargando&hellip;">
+            </label>
+        </p>
+
+        <!-- Nuevo Campo Compañía -->
+        <p>
+            <label>
+                Compañía *
+                <input name="compania" value="Cargando&hellip;">
+            </label>
+        </p>
+
+        <!-- Nuevo Campo Año -->
+        <p>
+            <label>
+                Año de lanzamiento *
+                <input name="anio" type="number" value="Cargando&hellip;">
+            </label>
+        </p>
+
+        <p>* Obligatorio</p>
+
+        <p>
+            <button type="submit">Guardar</button>
+            <button id="botonEliminar" type="button">Eliminar</button>
+        </p>
+    </form>
+
+    <script type="module">
+        import { descargaVista } from "./libclienteweb/descargaVista.js"
+        import { configuraSubmitAccion } from "./libclienteweb/configuraSubmitAccion.js"
+        import { configuraAccionElimina } from "./libclienteweb/configuraAccionElimina.js"
+
+        const params = new URLSearchParams(location.search)
+        descargaDatos()
+
+        async function descargaDatos() {
+            if (params.size > 0) {
+                // Asegúrate de que tu archivo PHP de vista retorne los nuevos campos
+                await descargaVista("api/pasatiempo-vista-modifica.php?" + params)
+                
+                configuraSubmitAccion(
+                    "api/pasatiempo-modifica.php", formulario, "index.html"
+                )
+                
+                configuraAccionElimina(
+                    botonEliminar, "Confirma la eliminación", "api/pasatiempo-elimina.php",
+                    formulario, "index.html"
+                )
+            }
+        }
+    </script>
+
+</body>
+</html>

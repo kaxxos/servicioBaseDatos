@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Agregar</title>
+    <script type="module" src="libclienteweb/manejaErrores.js"></script>
+</head>
+
+<body>
+
+    <form id="formulario">
+
+        <h1>Agregar</h1>
+
+        <p><a href="index.html">Cancelar</a></p>
+
+       
+        <p>
+            <label>
+                Nombre *
+                <input name="nombre" required>
+            </label>
+        </p>
+
+       
+        <p>
+            <label>
+                Compañía *
+                <input name="compania" required>
+            </label>
+        </p>
+
+        
+        <p>
+            <label>
+                Año de lanzamiento *
+                <input name="anio" type="number" required>
+            </label>
+        </p>
+
+        <p>* Obligatorio</p>
+
+        <p><button type="submit">Agregar</button></p>
+
+    </form>
+
+    <script type="module">
+        import {
+            configuraSubmitAccion
+        } from "./libclienteweb/configuraSubmitAccion.js"
+
+        configuraSubmitAccion("api/pasatiempo-agrega.php", formulario, "index.html")
+    </script>
+
+</body>
+
+</html>
